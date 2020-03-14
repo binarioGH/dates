@@ -5,9 +5,9 @@
 def get_date_in_days(date):
 	date = date.strip().split("/")
 	try:
-		years = int(date[0])
-		months = int(date[1])
-		days = int(date[2])
+		years = int(date[-1])
+		months = int(date[0])
+		days = int(date[1])
 	except:
 		return -1
 	else:
@@ -17,11 +17,13 @@ def get_date_in_days(date):
 		if years%4 == 0 and months <= 2:
 			total_days -= 1
 		for mnth in range(1, months):
-			if months % 2 and months != 2:
+			if mnth % 2 == 1 and mnth != 2:
+				#print("*")
 				total_days += 31
-			elif months == 2:
+			elif mnth == 2:
 				total_days += 28
 			else:
+				#print("!")
 				total_days += 30
 
 		total_days += days
@@ -36,6 +38,8 @@ def main():
 	while date != "exit":
 		date = input("Input a date (mm/dd/yyyy):")
 		days = get_date_in_days(date)
+		if days == -1 or date == "exit":
+			continue
 		day = get_day_of_the_week(days)
 		print("{} was a {}.".format(date, day))
 
