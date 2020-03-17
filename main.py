@@ -11,6 +11,21 @@ def get_date_in_days(date):
 	except:
 		return -1
 	else:
+		months30 = (4, 6, 7, 9, 11)
+		if years < 0:
+			return -1
+		if months > 12 or months < 0:
+			return -1
+		if months in months30 and days > 30:
+			return -1
+		elif months == 2:
+			if years % 4 == 0 and days > 29:
+				return -1
+			elif years % 4 != 0 and days > 28:
+				return -1
+		else:
+			if days > 31:
+				return -1
 		total_days = 0
 		total_days += years * 365
 		total_days += int(years / 4)
@@ -33,18 +48,22 @@ def get_day_of_the_week(days):
 	week = ["Friday", "Saturday", "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday"]
 	return week[days%7]
 
-def main():
+def console_mode():
 	date = ""
 	while date != "exit":
 		date = input("Input a date (mm/dd/yyyy):")
 		days = get_date_in_days(date)
-		if days == -1 or date == "exit":
+		if date == "exit":
+			continue
+		elif days == -1:
+			print("{} is an Invalid date.".format(date))
 			continue
 		day = get_day_of_the_week(days)
 		print("{} was a {}.".format(date, day))
 
+
 if __name__ == '__main__':
-	main()
+	console_mode()
 
 
 
