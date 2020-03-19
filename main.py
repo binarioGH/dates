@@ -1,6 +1,10 @@
 #-*-coding: utf-8-*-
 
+from tkinter import *
 
+
+def do_all(date):
+	return get_day_of_the_week(get_date_in_days(date))
 
 def get_date_in_days(date):
 	date = date.strip().split("/")
@@ -61,9 +65,27 @@ def console_mode():
 		day = get_day_of_the_week(days)
 		print("{} was a {}.".format(date, day))
 
+def main():
+	MBG = "#FCDFD8"
+	root = Tk()
+	root.geometry("500x500")
+	root.title("Get da date")
+	mframe = Frame(root, bg=MBG)
+	mframe.place(relx=0, rely=0, relwidth=1, relheight=1)
+	title = Label(mframe, bg=MBG, text="Input a date!", fg="black", font=("Courier", 18))
+	title.place(relx=0.1, rely=0.1, relwidth=0.8, relheight=0.2)
+	inputDate = Entry(mframe, font=("Courier", 20))
+	inputDate.place(relx=0.2, rely=0.4, relwidth=0.2, relheight=0.1)
+	send = Button(mframe, text="Check!", font=("Courier", 18), command=lambda:result.config(text=do_all(inputDate.get())))
+	send.place(relx=0.5, rely=0.4, relwidth=0.4, relheight=0.1)
+	result = Label(mframe,bg=MBG,text="", font=("Courier", 40))
+	result.place(relx=0, rely=0.6, relwidth=1, relheight=0.4)
+
+	root.mainloop()
 
 if __name__ == '__main__':
-	console_mode()
+	main()
+	#console_mode()
 
 
 
