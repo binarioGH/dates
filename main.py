@@ -4,7 +4,12 @@ from tkinter import *
 
 
 def do_all(date):
-	return get_day_of_the_week(get_date_in_days(date))
+	ret = get_date_in_days(date)
+	if ret == -1:
+		return "Incorrect date."
+	else:
+		return get_day_of_the_week(ret)
+
 
 def get_date_in_days(date):
 	date = date.strip().split("/")
@@ -74,13 +79,16 @@ def main():
 	mframe.place(relx=0, rely=0, relwidth=1, relheight=1)
 	title = Label(mframe, bg=MBG, text="Input a date!", fg="black", font=("Courier", 18))
 	title.place(relx=0.1, rely=0.1, relwidth=0.8, relheight=0.2)
+	display = Label(mframe, bg=MBG, fg="grey", font=("Courier", 10), text="mm/dd/yyyy")
+	display.place(relx=0.2, rely=0.3, relwidth=0.2, relheight=0.1)
 	inputDate = Entry(mframe, font=("Courier", 20))
+	#inputDate.insert(0, "m/d/yyyy")
 	inputDate.place(relx=0.2, rely=0.4, relwidth=0.2, relheight=0.1)
 	send = Button(mframe, text="Check!", font=("Courier", 18), command=lambda:result.config(text=do_all(inputDate.get())))
 	send.place(relx=0.5, rely=0.4, relwidth=0.4, relheight=0.1)
 	result = Label(mframe,bg=MBG,text="", font=("Courier", 40))
 	result.place(relx=0, rely=0.6, relwidth=1, relheight=0.4)
-
+	root.bind('<Return>', lambda *args, **kwargs:result.config(text=do_all(inputDate.get())))
 	root.mainloop()
 
 if __name__ == '__main__':
