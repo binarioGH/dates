@@ -1,7 +1,7 @@
 #-*-coding: utf-8-*-
 
 from tkinter import *
-
+from sys import argv
 
 def do_all(date):
 	ret = get_date_in_days(date)
@@ -92,8 +92,12 @@ def main():
 	root.mainloop()
 
 if __name__ == '__main__':
-	main()
-	#console_mode()
+	if len(argv) == 1:
+		main()
+	elif "--consolemod" in argv:
+		console_mode()
+	else:
+		print("Incorrect argument, try --consolemod")
 
 
 
